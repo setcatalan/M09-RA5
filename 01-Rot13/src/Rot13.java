@@ -81,7 +81,7 @@ public class Rot13 {
                         char lletra = abecedari[j];
                         if (caracter == lletra){
                             if (j < 13){
-                                j += 29;
+                                j += abecedari.length;
                             }
                             textDesxifrat += abecedari[(j - 13)];
                             break;
@@ -93,7 +93,7 @@ public class Rot13 {
                         char lletra = abecedari[j];
                         if (caracter == lletra){
                             if (j < 13){
-                                j += 29;
+                                j += abecedari.length;
                             }
                             textDesxifrat += Character.toUpperCase(abecedari[(j - 13)]);
                             break;
