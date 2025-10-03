@@ -65,6 +65,16 @@ public class Monoalfabetic {
     }
 
     public static String xifraMonoAlfa(char[] cadena){
+        String text = xifraDesxifra(cadena, abecedari, abecedariPermutat);
+        return text;
+    }
+
+    public static String desxifraMonoAlfa(char[] cadena){
+        String text = xifraDesxifra(cadena, abecedariPermutat, abecedari);
+        return text;
+    }
+
+    public static String xifraDesxifra(char[] cadena, char[] abecedari, char[] abecedariPermutat){
         String text = "";
         for (char caracter: cadena){
             boolean lletraCorrecta = false;
@@ -80,32 +90,6 @@ public class Monoalfabetic {
                 char lletra = Character.toLowerCase(abecedari[j]);
                 if (caracter == lletra){
                     text += Character.toLowerCase(abecedariPermutat[j]);
-                    lletraCorrecta = true;
-                    break;
-                }
-            }
-            if (lletraCorrecta) continue;
-            text += caracter;
-        }
-        return text;
-    }
-
-    public static String desxifraMonoAlfa(char[] cadena){
-        String text = "";
-        for (char caracter: cadena){
-            boolean lletraCorrecta = false;
-            for (int i = 0; i < abecedariPermutat.length; i++){
-                if (caracter == abecedariPermutat[i]){
-                    text += abecedari[i];
-                    lletraCorrecta = true;
-                    break;
-                }
-            }
-            if (lletraCorrecta) continue;
-            for (int j = 0; j < abecedariPermutat.length; j++){
-                char lletra = Character.toLowerCase(abecedariPermutat[j]);
-                if (caracter == lletra){
-                    text += Character.toLowerCase(abecedari[j]);
                     lletraCorrecta = true;
                     break;
                 }
