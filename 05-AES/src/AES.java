@@ -69,7 +69,7 @@ public class AES {
 
     private static String desxifraAES(byte[] bXifrat, String clau) throws Exception{
         //Extreure l'IV
-
+        
         //Extreure la part xifrada
 
         //Desxifra
