@@ -1,8 +1,6 @@
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Base64;
-import java.security.KeyStore.SecretKeyEntry;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -69,12 +67,24 @@ public class AES {
 
     private static String desxifraAES(byte[] bXifrat, String clau) throws Exception{
         //Extreure l'IV
-        
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
+
         //Extreure la part xifrada
+        bXifrat = Base64.getDecoder().decode(bXifrat);
+
+        //Fer hash de la clau
+        byte[] cadena = clau.getBytes();
+        MessageDigest md = MessageDigest.getInstance(ALGORISME_HASH);
+        cadena = md.digest(cadena);
+        cadena = Arrays.copyOf(cadena, 16);
+        SecretKeySpec secretKeySpec = new SecretKeySpec(cadena, ALGORISME_XIFRAT);
 
         //Desxifra
+        Cipher cipher = Cipher.getInstance(FORMAT_AES);
+        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
+        byte[] msgDesxifrat = cipher.doFinal(bXifrat);
 
         //return String desxifrat
-        return null;
+        return new String(msgDesxifrat);
     }
 }
