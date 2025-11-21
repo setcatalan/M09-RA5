@@ -1,10 +1,20 @@
+import java.security.MessageDigest;
+import java.util.HexFormat;
+
 public class Hashes {
 
     private int npass = 0;
 
-    public String getSHA512AmbSalt(String pw, String salt){
+    public String getSHA512AmbSalt(String pw, String salt) throws Exception{
+        String pwSalt = pw + salt;
 
-        return null;
+        MessageDigest md = MessageDigest.getInstance("SHA-512");
+        byte[] hash = md.digest(pwSalt.getBytes());
+            
+        HexFormat hex = HexFormat.of();
+        hash = 
+            
+        return ;
     }
 
     public String getPBKDF2AmbSalt(String pw, String salt){
@@ -13,16 +23,17 @@ public class Hashes {
     }
 
     public String forcaBruta(String alg, String hash, String salt){
+        String charset = "abcdefABCDEF1234567890!";
 
         return null;
     }
 
     public String getInterval(long t1, long t2){
 
-        return null;
+        return String.format("%d", t2 - t1);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
 
         String salt = "qpoweiruañslkdfjz";
         String pw = "aaabF!";
@@ -36,7 +47,7 @@ public class Hashes {
         for (int i = 0; i < aHashes.length; i++){
             System.out.printf("===========================\n");
             System.out.printf("Algorisme: %s\n", algorismes[i]);
-            System.out.printf("Hash: %s\n", aHashes[i]);
+            System.out.printf("Hash:\n%s\n", aHashes[i]);
             System.out.printf("---------------------------\n");
             System.out.printf("-- Inici de força bruta ---\n");
 
@@ -44,9 +55,10 @@ public class Hashes {
             pwTrobat = h.forcaBruta(algorismes[i], aHashes[i], salt);
             long t2 = System.currentTimeMillis();
 
-            System.out.printf("Passwd  : %s", pwTrobat);
-            System.out.printf("Provats : %d", h.npass);
-            System.out.printf("Temps   : %s", h.getInterval(t1, t2));
+            System.out.printf("Passwd  : %s\n", pwTrobat);
+            System.out.printf("Provats : %d\n", h.npass);
+            System.out.printf("Temps   : %s\n", h.getInterval(t1, t2));
+            System.out.printf("---------------------------\n");
         }
     }
 }
